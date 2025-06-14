@@ -2,7 +2,6 @@ import sys
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from tensorflow import double
 from tensorflow.keras.datasets import mnist
 import pickle
 
@@ -486,7 +485,6 @@ def train_new_model(manager):
     X_train = X_train.reshape(-1, 28 * 28) / 255.0
     X_test = X_test.reshape(-1, 28 * 28) / 255.0
     y_train_onehot = one_hot(y_train, 10)
-    y_test_onehot = one_hot(y_test, 10)
 
     # Get model configuration
     layers, settings = get_user_hyperparameters()
