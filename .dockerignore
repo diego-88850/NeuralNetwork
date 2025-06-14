@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pkl
+*.db
+*.sqlite3
+*.log
+.DS_Store
+.env
+
+# pyenv
+.python-version

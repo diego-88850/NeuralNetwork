@@ -4,8 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from tensorflow.keras.datasets import mnist
-import io
-import base64
 
 # Configure page
 st.set_page_config(
