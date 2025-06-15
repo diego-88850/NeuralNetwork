@@ -284,6 +284,7 @@ def model_manager_page():
 
     if selected_model:
         info = st.session_state.manager.model_info[selected_model]
+        model = st.session_state.manager.models[selected_model]
 
         col1, col2 = st.columns(2)
 
@@ -296,6 +297,37 @@ def model_manager_page():
 
         with col2:
             st.metric("Total Epochs", info.get('total_epochs', 'Unknown'))
+
+        # Network Architecture
+        st.subheader("Network Architecture")
+        if hasattr(model, 'weights') and model.weights:
+            # Extract and display layer information
+            layer_info = []
+            layer_sizes = [model.weights[0].shape[1]]  # Input layer
+
+            for i, weight in enumerate(model.weights):
+                layer_sizes.append(weight.shape[0])
+                layer_info.append({
+                    'Layer': f"Layer {i + 1}",
+                    'Type': 'Hidden (ReLU)' if i < len(model.weights) - 1 else 'Output (Softmax)',
+                    'Input Size': weight.shape[1],
+                    'Output Size': weight.shape[0],
+                    'Parameters': weight.shape[0] * weight.shape[1] + weight.shape[0]  # weights + biases
+                })
+
+            # Display architecture summary
+            st.write(f"**Architecture:** {layer_sizes}")
+
+            # Display detailed layer information
+            layer_df = pd.DataFrame(layer_info)
+            st.dataframe(layer_df, use_container_width=True)
+
+            # Calculate total parameters
+            total_params = sum([info['Parameters'] for info in layer_info])
+            st.metric("Total Parameters", f"{total_params:,}")
+
+        else:
+            st.write("Architecture information not available")
 
         # Settings
         if 'settings' in info and info['settings']:
