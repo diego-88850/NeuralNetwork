@@ -34,9 +34,9 @@ This project is designed to be both educational and production-aware, showcasing
 ## Architecture Overview
 
 ```mermaid
-graph TD;
-    A[User Input (CLI / Streamlit)] --> B[Preprocessing]
-    B --> C[Custom NN Model (NumPy)]
+graph TD
+    A[User Input CLI / Streamlit] --> B[Preprocessing]
+    B --> C[Custom NN Model NumPy]
     C --> D[Training / Evaluation]
     D --> E[Model Pickle Save]
     E --> F[Predictions via GUI/CLI]
